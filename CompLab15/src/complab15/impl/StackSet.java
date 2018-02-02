@@ -4,38 +4,51 @@
  * and open the template in the editor.
  */
 package complab15.impl;
-
-import complab15.adt.Queue;
+ 
 import complab15.adt.Set;
+import complab15.adt.Stack;
 
 /**
  *
  * @author Lenovo
  */
-public class QueueSet<T> implements Set<T> {
+public class StackSet<T> implements Set<T> {
 
-    private LinkedListQueue<T> queue;
+    private LinkedListStack<T> stack;
 
-    public QueueSet() {
-        this.queue = new LinkedListQueue<>();
+    public StackSet() {
+        this.stack = new LinkedListStack<>();
     }
 
     @Override
     public void add(T value) {
         if(!contains(value)){
-            queue.enqueue(value);
+            stack.push(value);
         }
     }
 
     @Override
     public boolean contains(T value) {
-        
-        for(int i=0; i<queue.getSize(); i++){
-            try {
-                T current = queue.dequeue();
-                queue.enqueue(current);
-                if(current.equals(value))
+        int size = stack.getSize();  
+        Stack<T> temp = new LinkedListStack<>();
+        for(int i=0; i<size; i++){
+            try {                
+                T current = stack.pop();
+                temp.push(current);  
+                if(current.equals(value)){ 
+                    int t_size= temp.getSize();
+                    for (int j = 0; j < t_size; j++) { 
+                        stack.push(temp.pop()); 
+                    }
                     return true;
+                }else if(stack.getSize() == 0){
+                    int t_size= temp.getSize();    
+                    for (int j = 0; j < t_size; j++) { 
+                        stack.push(temp.pop()); 
+                    }
+                }
+                
+                    
             } catch (Exception e) {
                 System.out.println(e);
             }
@@ -48,18 +61,17 @@ public class QueueSet<T> implements Set<T> {
     @Override
     public boolean remove(T value) {
         if(contains(value)){
-            Queue<T> out = new LinkedListQueue();
+            Stack<T> out = new LinkedListStack();
             T current = null;
             try {
-                current = queue.dequeue();
+                current = stack.pop();
             } catch (Exception e) {
                 System.out.println(e);
-            }
-            
-            while(!value.equals(current)){
-                out.enqueue(current);
+            } 
+            while(!value.equals(current)){ 
+                out.push(current);
                 try {
-                   current = queue.dequeue();
+                   current = stack.pop();
                 } catch (Exception e) {
                     System.out.println(e);
                 }  
@@ -68,7 +80,7 @@ public class QueueSet<T> implements Set<T> {
             int size = out.getSize();
             for(int i=0; i<size; i++ ){
                 try {
-                    queue.enqueue(out.dequeue());
+                    stack.push(out.pop());
                 } catch (Exception e) {
                     System.out.println(e);
                 }
@@ -81,22 +93,22 @@ public class QueueSet<T> implements Set<T> {
 
     @Override
     public T removeAny() throws Exception {
-        if(queue.getSize() == 0) throw new Exception("empty");
-        T result = queue.dequeue();        
+        if(stack.getSize() == 0) throw new Exception("empty");
+        T result = stack.pop();        
         return result;
     }
 
     @Override
     public int getSize() {
-        return queue.getSize();
+        return stack.getSize();
     }
 
     @Override
     public void clear() {
-        queue.clear();
+        stack.clear();
     }
     
     public String toString(){
-        return queue.toString();
+        return stack.toString();
     }
 }

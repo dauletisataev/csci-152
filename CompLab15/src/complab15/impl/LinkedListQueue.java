@@ -58,14 +58,14 @@ public class LinkedListQueue<T> implements Queue<T> {
     }
     
     public String toString(){
-        String result="front[ ";
+        String result="[";
         Node<T> current = front;
         while(current != null){
             result += current.getValue()+" ";
             current = current.getLink();
         }
         
-        return result+"]back";
+        return result+"]";
     }
 
     @Override
