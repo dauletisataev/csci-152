@@ -21,7 +21,10 @@ public class CompLab15 {
      */
     public static void main(String[] args) {
         //lab15_1();
-        lab15_2();
+        //lab15_2();
+        //lab15_3();
+        //lab15_4();
+        lab15_5();
     }
     
     static void lab15_1(){
@@ -137,5 +140,47 @@ public class CompLab15 {
         set.add(new Student(222, "wqeqwe"));
         set.add(new Student(202, "lplp"));
         System.out.println(set+" and size:"+set.getSize());
+    }
+    
+    static void lab15_3(){
+        SetsChecker checker = new SetsChecker();
+        Set<Integer> set1 = new QueueSet();
+        Set<Integer> set2 = new QueueSet();
+        for (int i = 0; i < 10; i++) {
+           set2.add(i); 
+        }
+        for (int i = 9; i > 7; i--) {
+            set1.add(i);
+        }
+        
+        System.out.println(checker.isSubset(set1, set2));
+    }
+    
+    static void lab15_4(){
+        SetsChecker checker = new SetsChecker();
+        
+        Set<String> set1 = new QueueSet();
+        Set<String> set2 = new QueueSet();
+        for (int i = 0; i < 10; i++) {
+           set2.add(String.valueOf(i)); 
+        }
+        for (int i = 15; i > 7; i--) {
+            set1.add(String.valueOf(i));
+        }
+        System.out.println(checker.union(set1, set2));
+    }
+    
+    static void lab15_5(){
+        SetsChecker checker = new SetsChecker();
+        
+        Set<Integer> set1 = new QueueSet();
+        Set<Integer> set2 = new QueueSet();
+        for (int i = 0; i < 10; i++) {
+           set2.add(i); 
+        }
+        for (int i = 9; i > 4; i--) {
+            set1.add(i);
+        }
+        System.out.println(checker.intersection(set1, set2));
     }
 }
