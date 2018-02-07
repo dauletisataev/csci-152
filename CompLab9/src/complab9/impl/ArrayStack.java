@@ -47,7 +47,7 @@ public class ArrayStack<T> implements Stack<T> {
         String result ="";
         for(int i =0; i<size; i++) result += String.valueOf(values[i])+" ";
         
-        return result;
+        return result+" and size:"+getSize();
     }
     
     
