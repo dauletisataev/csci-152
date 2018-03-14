@@ -6,6 +6,7 @@
 package complab10;
 
 import complab10.adt.Queue;
+import complab10.impl.LinkedListQueue;
 import complab10.impl.LinkedListStack;
 
 /**
@@ -17,11 +18,16 @@ public class SequenceChecker {
         
     }
     public static boolean isBalanced(Queue<Character> q) throws Exception {
-        Queue<Character> queue = q;
+        Queue<Character> queue = new LinkedListQueue();
         LinkedListStack<Character> stack  = new LinkedListStack();
-        int size = queue.getSize();
+        int size = q.getSize();
         for(int i= 0; i<size; i++){
             char c = q.dequeue();
+            queue.enqueue(c);
+            q.enqueue(c);
+        }
+        for(int i= 0; i<size; i++){
+            char c = queue.dequeue();
             if(c== '{' || c=='[' || c=='('){
                 stack.push(c);
             } else if(c==')'){
@@ -36,7 +42,8 @@ public class SequenceChecker {
                 if(stack.isEmpty() || stack.pop() != '[') {
                     return false;
                 }
-            }
+            } else            
+                throw new Exception("Illegal character taken");
         }
         return true;
         

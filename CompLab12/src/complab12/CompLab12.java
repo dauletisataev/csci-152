@@ -7,6 +7,7 @@ package complab12;
 
 import complab12.impl.LinkedListSortedQueue;
 import complab12.impl.Student;
+import complab12.adt.SortedQueue;
 
 /**
  *
@@ -24,7 +25,7 @@ public class CompLab12 {
     }
     
     static void lab12_1(){
-        LinkedListSortedQueue<Integer> sortedQueue = new LinkedListSortedQueue();
+        SortedQueue<Integer> sortedQueue = new LinkedListSortedQueue();
         
 //        Inserts the integers 90, 80, 70, …, 10 in that order, and then prints its contents and size afterwards
         for(int i=90; i>0; i-=10){

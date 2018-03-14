@@ -1,15 +1,25 @@
 
-package csci152.impl;
+package complab17.impl;
 
 /**
  * Node class for creating generic binary trees
  */
-public class TreeNode<T> {
+public class OnOffTreeNode<T> {
     
     private T value;
     
-    private TreeNode<T> left;
-    private TreeNode<T> right;
+    private OnOffTreeNode<T> left;
+    private OnOffTreeNode<T> right;
+    private OnOffTreeNode<T> parent;
+    private boolean active; 
+
+    public OnOffTreeNode<T> getParent() {
+        return parent;
+    }
+
+    public void setParent(OnOffTreeNode<T> parent) {
+        this.parent = parent;
+    }
     
     /**
      * Construct a tree node with the given value, 
@@ -17,10 +27,11 @@ public class TreeNode<T> {
      * 
      * @param val to set on the node
      */
-    public TreeNode(T val) {
+    public OnOffTreeNode(T val) {
         value = val;
         left = null;
         right = null;
+        active = true;
     }
     
     /**
@@ -40,29 +51,43 @@ public class TreeNode<T> {
     /**
      * @return the left
      */
-    public TreeNode<T> getLeft() {
+    public OnOffTreeNode<T> getLeft() {
+        
         return left;
     }
 
     /**
      * @param left the left to set
      */
-    public void setLeft(TreeNode<T> left) {
+    public void setLeft(OnOffTreeNode<T> left) {
         this.left = left;
+        if(left!=null) left.setParent(this);
     }
 
     /**
      * @return the right
      */
-    public TreeNode<T> getRight() {
+    public OnOffTreeNode<T> getRight() {
         return right;
+        
     }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+    
+    
 
     /**
      * @param right the right to set
      */
-    public void setRight(TreeNode<T> right) {
+    public void setRight(OnOffTreeNode<T> right) {
         this.right = right;
+        if(right!=null) right.setParent(this);
     }
         
     /**

@@ -7,6 +7,7 @@ package complab10;
 
 import complab10.impl.LinkedListQueue;
 import complab10.impl.LinkedListStack;
+import complab10.adt.Queue;
 
 /**
  *
@@ -20,8 +21,8 @@ public class CompLab10 {
     public static void main(String[] args) {
         //lab10();
         //lab11_1();
-        //lab11_2();
-        lab11_3();
+        lab11_2();
+        //lab11_3();
     }
     
     static void lab10(){
@@ -29,7 +30,7 @@ public class CompLab10 {
         try {
             System.out.println(listStack.pop());
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
         
         for(int i=0; i<12; i++) listStack.push(i);        
@@ -45,11 +46,11 @@ public class CompLab10 {
     }
     
     static void lab11_1(){
-        LinkedListQueue<Integer> listQueue = new LinkedListQueue();
+        Queue<Integer> listQueue = new LinkedListQueue();
         try {
             System.out.println(listQueue.dequeue());
         } catch (Exception e) {
-            System.err.println(e);
+            System.out.println(e.getMessage());
         }
         
         for(int i =0; i<8; i++){
@@ -83,27 +84,30 @@ public class CompLab10 {
         
         System.out.println("\nClear the queue");
         listQueue.clear();
-        System.err.println(listQueue+" and size: "+listQueue.getSize());
+        System.out.println(listQueue+" and size: "+listQueue.getSize());
+        
+        for(int i =0; i<22; i++){
+            listQueue.enqueue(i);
+        } 
+        System.out.println(listQueue+" and size: "+listQueue.getSize());
     }
     
     static void lab11_2(){
         SequenceChecker checker = new SequenceChecker();
         LinkedListQueue<Character> queue = new LinkedListQueue();
-        queue.enqueue('{');
+        
         queue.enqueue('{');
         queue.enqueue('[');
-        queue.enqueue('(');
-        queue.enqueue(')'); 
-        queue.enqueue(']');
         queue.enqueue('}');
-        queue.enqueue('}');
+        queue.enqueue(']');        
+        System.out.println("initial que:" + queue);
+ 
         try {
             System.out.println( checker.isBalanced(queue));
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
-            
-        
+        System.out.println("initial que:" + queue);
     }
     
     static void lab11_3(){

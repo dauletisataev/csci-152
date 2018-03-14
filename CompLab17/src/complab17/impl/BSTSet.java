@@ -63,22 +63,35 @@ public class BSTSet<T extends Comparable> implements Set<T> {
 
     @Override
     public boolean contains(T value) {
+        //System.out.println("\nxxxxxxxxxxxxx\nstarting check for contain of "+value.toString()+": ..... \n");
         if(root == null) return false;
         TreeNode<T> current = root;
+        int i =0;
         while(true){
+        //    System.out.println("loop №"+i);
             int compare = current.getValue().compareTo(value);
-            //System.out.println("comparison to "+current.getValue()+" "+compare);
+           // System.out.println("comparison to "+current.getValue()+" is "+compare);
+            
             if(compare>0){
-                //System.out.println("going left from:"+current.getValue());
+         //       System.out.println("going left from:"+current.getValue());
+                i++;
+             //   System.out.println("----------\n");
                 if(current.getLeft() == null) return false;
                 current  = current.getLeft();
+                
             }else if(compare<0){
-                //System.out.println("going right from:"+current.getValue());
+               // System.out.println("going right from:"+current.getValue());
+                i++;
+                //System.out.println("----------\n");
                 if(current.getRight() == null) return false;
                 current  = current.getRight();
-            }else
+            }else{
                 // it means current equals to value
+                i++;
+                //System.out.println("----------\n");
                 return true;
+            }
+            
         }
     }
 
@@ -98,16 +111,16 @@ public class BSTSet<T extends Comparable> implements Set<T> {
                 current  = current.getLeft();
                 isLeftChild = true;
             }else if(compare<0){
-                isLeftChild = false;
                 //System.out.println("going right from:"+current.getValue());
                 if(current.getRight() == null) return false;
                 current  = current.getRight();
+                isLeftChild = false;
             }else{
                 // it means current equals to value
                 
                 //case1: has no child;
                 size--;
-                if(current.getLeft() == null && current.getRight() == null){
+                if(current.getLeft() == null && current.getRight() == null){ 
                     if(size  == 0) {
                         root = null;
                         return true;
@@ -122,7 +135,7 @@ public class BSTSet<T extends Comparable> implements Set<T> {
                 }
                 
                 //case2: has one child:
-                if(current.getLeft() == null){//have a right child
+                if(current.getLeft() == null){//have a right child 
                     if(size == 0) {
                         root = null;
                         root = current.getRight();
@@ -138,7 +151,7 @@ public class BSTSet<T extends Comparable> implements Set<T> {
                         return true;
                     }
                 }else 
-                if(current.getRight() == null){//have a right child
+                if(current.getRight() == null){//have a left child 
                     if(size == 0) {
                         root = current.getLeft();
                         return true;
@@ -154,23 +167,30 @@ public class BSTSet<T extends Comparable> implements Set<T> {
                     }
                 } 
                 //case 3: has two child
-                if(current.getLeft()!=null && current.getRight()!=null){
+                if(current.getLeft()!=null && current.getRight()!=null){ 
                     TreeNode<T> min = current.getRight();
+                    boolean minIsLeft = false;
                     while(true){
-                        if(min.getLeft() == null){
+                        if(min.getLeft() == null){  
                             if(min.getRight()!=null){
-                                min.getParent().setLeft(min.getRight());
+                                if(minIsLeft) min.getParent().setLeft(min.getRight()) ;
+                                        else min.getParent().setRight(min.getRight()) ;
                             }
-                            min.getParent().setLeft(null);
+                            else {
+                                if(minIsLeft) min.getParent().setLeft(null) ;
+                                        else min.getParent().setRight(null) ;
+                            }
                             min.setLeft(current.getLeft());
                             min.setRight(current.getRight());
-                            if(isLeftChild == true){
+                            if(isLeftChild == true){ 
                                 current.getParent().setLeft(min);
                                 current = null;     
                                 return true;
                             }else{
+                                System.out.println("is right");
                                 if(current.getParent()==null){
                                     root = min;
+                                    root.setParent(null); 
                                 }else
                                 current.getParent().setRight(min);
                                 current = null; 
@@ -178,6 +198,7 @@ public class BSTSet<T extends Comparable> implements Set<T> {
                             }  
                         }
                         min = min.getLeft();
+                        minIsLeft = true;
                     }
                 } 
                         
@@ -224,6 +245,7 @@ public class BSTSet<T extends Comparable> implements Set<T> {
     
     public String treeToString(TreeNode tree){
         if(tree == null) return "";
+        //System.out.println("in process : "+tree);
         return treeToString(tree.getLeft())+" "+tree.getValue()+" "+ treeToString(tree.getRight());
         
     }

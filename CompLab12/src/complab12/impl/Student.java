@@ -41,14 +41,14 @@ public class Student implements Comparable {
          * lab12_2
          */
         Student st = (Student) student;
-//        boolean res = id > st.getId();
-//        if(res == false) return -1; 
-//        else return 1; 
+        boolean res = id > st.getId();
+        if(res == false) return -1; 
+        else return 1; 
 
         /**
          * lab12_2
          */
-        return name.compareTo(st.getName());
+        //return name.compareTo(st.getName());
     }
     
     public String toString(){
